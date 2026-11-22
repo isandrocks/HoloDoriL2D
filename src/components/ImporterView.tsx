@@ -355,7 +355,7 @@ export const ImporterView: React.FC<ImporterViewProps> = ({
           </div>
 
           <div className="card-actions">
-            <Tooltip title={t('importer.steam_detect_btn')} body="Steam 라이브러리 목록을 다시 스캔하여 HoloDori 게임 설치 위치를 탐색합니다.">
+            <Tooltip contentKey="tooltip.steam_detect">
               <button
                 className="btn-secondary btn-small"
                 onClick={runDetection}
@@ -364,7 +364,7 @@ export const ImporterView: React.FC<ImporterViewProps> = ({
                 {isDetecting ? t('importer.steam_detecting') : t('importer.steam_detect_btn')}
               </button>
             </Tooltip>
-            <Tooltip title={t('importer.choose_game_dir')} body="HoloDori 설치 폴더나 StreamingAssets가 있는 디렉터리를 직접 지정합니다.">
+            <Tooltip contentKey="tooltip.choose_game_dir">
               <button
                 className="btn-secondary btn-small"
                 onClick={handlePickManualFolder}
@@ -404,7 +404,7 @@ export const ImporterView: React.FC<ImporterViewProps> = ({
           </div>
 
           <div className="card-actions">
-            <Tooltip title="캐시 폴더 열기" body="다운로드 및 추출된 원본 에셋 번들이 저장된 로컬 캐시 폴더를 파일 탐색기로 엽니다.">
+            <Tooltip contentKey="tooltip.open_cache">
               <button
                 className="btn-secondary btn-small"
                 onClick={() => {
@@ -785,7 +785,7 @@ export const ImporterView: React.FC<ImporterViewProps> = ({
               onChange={(e) => setOutputDir(e.target.value)}
               placeholder="Destination folder for Live2D packages..."
             />
-            <Tooltip title={t('source.output_dir')} body="Live2D 모델 패키지가 저장될 대상 폴더를 선택합니다.">
+            <Tooltip contentKey="tooltip.output_dir">
               <button className="btn-secondary" onClick={handlePickOutputDir}>
                 📁
               </button>
@@ -804,7 +804,7 @@ export const ImporterView: React.FC<ImporterViewProps> = ({
         </div>
 
         <div className="footer-right">
-          <Tooltip title={t('about.btn_open_output')} body="생성된 Live2D 패키지 폴더를 파일 탐색기로 엽니다.">
+          <Tooltip contentKey="tooltip.open_output">
             <button
               className="btn-secondary"
               onClick={() => {

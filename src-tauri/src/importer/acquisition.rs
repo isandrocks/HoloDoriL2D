@@ -60,25 +60,57 @@ impl AssetAcquisition {
         expected_size: Option<u64>,
         cache_manager: &ImporterCacheManager,
         cancel_token: Arc<AtomicBool>,
+        on_progress: F,
+    ) -> Result<PathBuf, DomainError>
+    where
+        F: FnMut(u64, u64),
+    {
+        self.acquire_bundle_for_asset(
+            object_name,
+            None,
+            expected_md5,
+            expected_size,
+            cache_manager,
+            cancel_token,
+            on_progress,
+        )
+        .await
+    }
+
+    /// Acquires a bundle for a catalog asset, searching `cache/bundles/` first for `object_name`
+    /// or an exact extensionless match to `asset_name` (used directly as if it had `.bundle`),
+    /// and falling back to CDN download if not found in cache.
+    pub async fn acquire_bundle_for_asset<F>(
+        &self,
+        object_name: &str,
+        asset_name: Option<&str>,
+        expected_md5: &str,
+        expected_size: Option<u64>,
+        cache_manager: &ImporterCacheManager,
+        cancel_token: Arc<AtomicBool>,
         mut on_progress: F,
     ) -> Result<PathBuf, DomainError>
     where
         F: FnMut(u64, u64),
     {
         cache_manager.ensure_dirs()?;
-        let target_path = cache_manager.get_bundle_path(object_name);
 
-        if cache_manager.is_bundle_cached(object_name, expected_md5) {
+        if let Some(cached_path) =
+            self.find_cached_bundle(object_name, asset_name, expected_md5, cache_manager)
+        {
             debug!(
-                "Bundle {} hit local cache: {}",
+                "Bundle {} (asset: {:?}) hit local cache: {}",
                 object_name,
-                target_path.display()
+                asset_name,
+                cached_path.display()
             );
-            if let Ok(meta) = fs::metadata(&target_path) {
+            if let Ok(meta) = fs::metadata(&cached_path) {
                 on_progress(meta.len(), meta.len());
             }
-            return Ok(target_path);
+            return Ok(cached_path);
         }
+
+        let target_path = cache_manager.get_bundle_path(object_name);
 
         let url = self.cdn_template.replace("{objectName}", object_name);
         info!("Downloading bundle {} from {}", object_name, url);
@@ -205,5 +237,72 @@ impl AssetAcquisition {
             target_path.display()
         );
         Ok(target_path)
+    }
+
+    fn find_cached_bundle(
+        &self,
+        object_name: &str,
+        asset_name: Option<&str>,
+        expected_md5: &str,
+        cache_manager: &ImporterCacheManager,
+    ) -> Option<PathBuf> {
+        cache_manager.resolve_cached_bundle(object_name, asset_name, expected_md5)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use tempfile::tempdir;
+
+    #[tokio::test]
+    async fn test_acquire_uses_extensionless_exact_asset_name_in_cache() {
+        let dir = tempdir().unwrap();
+        let cache = ImporterCacheManager::with_root(dir.path().join("cache"));
+        cache.ensure_dirs().unwrap();
+
+        let asset_name = "live2d_mdl_00007-nrml-0008-00";
+        let object_name = "DCgZ7m";
+        let unityfs_payload = b"UnityFS\0\x00\x00\x00\x086000.3.15f1\0bundle_body";
+        let cached_file = cache.bundles_dir().join(asset_name);
+        fs::write(&cached_file, unityfs_payload).unwrap();
+
+        // Unreachable CDN verifies acquisition succeeds purely from the extensionless cache file
+        let acq = AssetAcquisition::with_cdn_template("http://127.0.0.1:1/{objectName}");
+        let cancel = Arc::new(AtomicBool::new(false));
+        let mut reported = None;
+
+        let resolved = acq
+            .acquire_bundle_for_asset(
+                object_name,
+                Some(asset_name),
+                "a163f3d6bfb59ba534ab1afbd3896120",
+                Some(unityfs_payload.len() as u64),
+                &cache,
+                cancel.clone(),
+                |rec, tot| reported = Some((rec, tot)),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(resolved, cached_file);
+        assert_eq!(
+            reported,
+            Some((unityfs_payload.len() as u64, unityfs_payload.len() as u64))
+        );
+
+        // Also supports object_name passed with .bundle when cache file omits .bundle
+        let resolved_stripped = acq
+            .acquire_bundle(
+                &format!("{asset_name}.bundle"),
+                "a163f3d6bfb59ba534ab1afbd3896120",
+                None,
+                &cache,
+                cancel,
+                |_, _| {},
+            )
+            .await
+            .unwrap();
+        assert_eq!(resolved_stripped, cached_file);
     }
 }

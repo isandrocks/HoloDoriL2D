@@ -86,7 +86,8 @@ impl CatalogLoader {
                     .collect();
             }
 
-            let is_cached = cache_manager.is_bundle_cached(&item.object_name, &item.md5);
+            let is_cached =
+                cache_manager.is_asset_bundle_cached(&item.object_name, &item.name, &item.md5);
 
             entries.push(ModelCatalogEntry {
                 asset_name: item.name,
@@ -172,7 +173,8 @@ impl CatalogLoader {
                 char_id = m.as_str().to_string();
             }
 
-            let is_cached = cache_manager.is_bundle_cached(&item.object_name, &item.md5);
+            let is_cached =
+                cache_manager.is_asset_bundle_cached(&item.object_name, &item.name, &item.md5);
 
             entries.push(super::types::ExpressionCatalogEntry {
                 asset_name: item.name,
@@ -222,7 +224,8 @@ impl CatalogLoader {
             let name = item.name.trim_start_matches("live2d_mot_").to_string();
             let category = name.split('-').next().unwrap_or(&name).to_string();
 
-            let is_cached = cache_manager.is_bundle_cached(&item.object_name, &item.md5);
+            let is_cached =
+                cache_manager.is_asset_bundle_cached(&item.object_name, &item.name, &item.md5);
 
             entries.push(super::types::MotionCatalogEntry {
                 asset_name: item.name,

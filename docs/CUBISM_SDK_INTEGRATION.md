@@ -37,7 +37,7 @@ The core binary `live2dcubismcore.min.js` and `live2dcubismcore.js` are propriet
 
 ### Rule 2: Open Source Framework
 The TypeScript framework code in `Framework/src/` is explicitly licensed under the **Live2D Open Software License Agreement**, which allows modification and distribution alongside user applications.
-- Compiled as clean ES6 modules into `src/viewer/cubism/framework/`.
+- Integrated directly as TypeScript source modules inside `src/viewer/cubism/framework/` with its own `tsconfig.json` (`strict: false`, `useDefineForClassFields: false`).
 - Type declarations in `src/types/live2dcubismcore.d.ts` enable strict TypeScript compilation without requiring the proprietary runtime JS binary during build time.
 
 ### Rule 3: Graceful Degradation

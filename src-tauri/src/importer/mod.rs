@@ -139,8 +139,9 @@ impl ImporterCoordinator {
         let cancel_clone = self.cancel_token.clone();
         let bundle_path = self
             .acquisition
-            .acquire_bundle(
+            .acquire_bundle_for_asset(
                 object_name,
+                Some(asset_name),
                 md5,
                 expected_size,
                 &self.cache_manager,
@@ -163,8 +164,9 @@ impl ImporterCoordinator {
         let cancel_clone = self.cancel_token.clone();
         let bundle_path = self
             .acquisition
-            .acquire_bundle(
+            .acquire_bundle_for_asset(
                 object_name,
+                Some(asset_name),
                 md5,
                 expected_size,
                 &self.cache_manager,
@@ -187,8 +189,9 @@ impl ImporterCoordinator {
         let cancel_clone = self.cancel_token.clone();
         let bundle_path = self
             .acquisition
-            .acquire_bundle(
+            .acquire_bundle_for_asset(
                 object_name,
+                Some(asset_name),
                 md5,
                 expected_size,
                 &self.cache_manager,
@@ -250,8 +253,9 @@ impl ImporterCoordinator {
             let cancel_clone = self.cancel_token.clone();
             let bundle_result = self
                 .acquisition
-                .acquire_bundle(
+                .acquire_bundle_for_asset(
                     &entry.object_name,
+                    Some(&entry.asset_name),
                     &entry.md5,
                     Some(entry.size_bytes),
                     &self.cache_manager,

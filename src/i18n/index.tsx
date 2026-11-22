@@ -19,6 +19,9 @@ export function detectDefaultLanguage(): Language {
     if (navLang.toLowerCase().startsWith('ko')) {
       return 'ko';
     }
+    if (navLang.toLowerCase().startsWith('en')) {
+      return 'en';
+    }
   }
   return 'ko'; // Primary language per specification
 }

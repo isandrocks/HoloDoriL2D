@@ -215,16 +215,22 @@ export const en = {
   // First-Run Guide (Onboarding)
   'onboarding.step1_title': 'Welcome to HoloDori Live2D Manager!',
   'onboarding.step1_desc': 'HoloDori Live2D Manager (HDM) allows you to import, view, and run Live2D character models from hololive Dreams as desktop mascots or animated Windows wallpapers.',
+  'onboarding.step1_tip': 'If hololive Dreams is installed on Steam, you can start right away with no extra setup.',
   'onboarding.step2_title': 'Step 1: Discover Installed Game',
   'onboarding.step2_desc': 'HDM automatically locates your hololive Dreams installation from Steam and reads official character models and outfits.',
+  'onboarding.step2_tip': 'Even if your Steam library is on another drive or in a non-ASCII folder path, it is detected automatically and safely.',
   'onboarding.step3_title': 'Step 2: Import & Build Characters',
   'onboarding.step3_desc': 'Select characters and outfits to extract MOC3 models, high-res textures, animations, and authentic physics into Live2D packages.',
+  'onboarding.step3_tip': 'Freely choose between default outfits (001=nrml), casual/unique outfits (002/004=uniq), and shared outfits (003=cmmn).',
   'onboarding.step4_title': 'Step 3: Live2D Viewer & Motions',
   'onboarding.step4_desc': 'Enjoy authentic animations and facial expressions in the embedded WebGL viewer. Enable Auto Motion to keep characters moving naturally.',
+  'onboarding.step4_tip': 'Try keyboard shortcuts like Space (play/pause motion), R (random motion), and F (fit to screen).',
   'onboarding.step5_title': 'Step 4: Desktop Character Mascot',
   'onboarding.step5_desc': 'Click [Send to Desktop] to spawn a borderless transparent mascot window that stays on your screen while you work or browse.',
+  'onboarding.step5_tip': 'Enable Click-Through mode to freely interact with apps or games behind your character while keeping it on screen.',
   'onboarding.step6_title': 'Step 5: Windows Live Wallpaper',
   'onboarding.step6_desc': 'Embed the character directly behind desktop icons. Desktop selection, clicking, and dragging work seamlessly without interference.',
+  'onboarding.step6_tip': 'Even if Windows Explorer restarts, the built-in watchdog automatically restores the wallpaper attachment within 2.5 seconds.',
   'onboarding.next': 'Next',
   'onboarding.prev': 'Previous',
   'onboarding.skip': 'Skip',
@@ -332,6 +338,42 @@ export const en = {
   'tooltip.param_inspector': {
     title: 'Parameter Inspector',
     body: 'Advanced developer tool allowing manual slider adjustment of all Live2D model parameters.',
+  } as TooltipItem,
+  'tooltip.output_dir': {
+    title: 'Output Directory',
+    body: 'Choose the destination folder where built Live2D model packages will be saved.',
+  } as TooltipItem,
+  'tooltip.open_output': {
+    title: 'Open Output Folder',
+    body: 'Open the output folder containing generated Live2D packages in File Explorer.',
+  } as TooltipItem,
+  'tooltip.select_source_folder': {
+    title: 'Select Source Folder',
+    body: 'Manually choose a local directory containing extracted Live2D assets.',
+  } as TooltipItem,
+  'tooltip.force_rescan': {
+    title: 'Force Full Rescan',
+    body: 'Bypass cached scan results and rescan all subfolders from scratch for MOC3 files and textures.',
+  } as TooltipItem,
+  'tooltip.open_viewer': {
+    title: 'Open Live2D Viewer',
+    body: 'Launch the selected outfit model in the embedded WebGL Live2D viewer.',
+  } as TooltipItem,
+  'tooltip.build_single': {
+    title: 'Build Selected Model',
+    body: 'Generate the Live2D package (model3.json) for the selected outfit.',
+  } as TooltipItem,
+  'tooltip.steam_detect': {
+    title: 'Auto-Detect Steam Game',
+    body: 'Rescan Steam library folders to automatically locate your HoloDori installation.',
+  } as TooltipItem,
+  'tooltip.choose_game_dir': {
+    title: 'Choose Game Directory Manually',
+    body: 'Manually select the HoloDori installation folder or StreamingAssets directory.',
+  } as TooltipItem,
+  'tooltip.open_cache': {
+    title: 'Open Cache Folder',
+    body: 'Open the local cache folder storing downloaded and extracted raw asset bundles in File Explorer.',
   } as TooltipItem,
 
   // Help & Manual

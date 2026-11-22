@@ -445,7 +445,7 @@ export const App: React.FC = () => {
                 onChange={(e) => setOutputDir(e.target.value)}
                 placeholder="Output directory..."
               />
-              <Tooltip title={t('source.output_dir')} body="Live2D 모델 패키지가 저장될 폴더를 선택합니다.">
+              <Tooltip contentKey="tooltip.output_dir">
                 <button className="btn-secondary" onClick={handlePickOutputDir}>
                   📁
                 </button>
@@ -557,7 +557,7 @@ export const App: React.FC = () => {
           {/* TOP CONTROL BAR */}
       <div className="top-control-bar">
         <div className="source-row">
-          <Tooltip title={t('source.select_folder')} body="Live2D 에셋이 추출되어 있는 로컬 폴더를 직접 선택합니다.">
+          <Tooltip contentKey="tooltip.select_source_folder">
             <button className="btn-primary" onClick={handlePickSourceFolder} disabled={isScanning || isBuilding}>
               {t('source.select_folder')}
             </button>
@@ -578,7 +578,7 @@ export const App: React.FC = () => {
               {isScanning ? t('library.scanning') : `🔄 ${t('library.scan_button')}`}
             </button>
           </Tooltip>
-          <Tooltip title="강제 전체 재검색" body="캐시를 무시하고 모든 하위 폴더의 MOC3와 텍스처를 처음부터 다시 검색합니다.">
+          <Tooltip contentKey="tooltip.force_rescan">
             <button
               className="btn-secondary btn-outline"
               onClick={() => triggerScan(sourcePath, true)}
@@ -974,7 +974,7 @@ export const App: React.FC = () => {
               )}
 
               <div className="details-actions" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <Tooltip title={t('viewer.title')} body="선택한 의상 모델을 내장 WebGL Live2D 뷰어로 실행합니다.">
+                <Tooltip contentKey="tooltip.open_viewer">
                   <button
                     className="btn-viewer btn-block"
                     style={{
@@ -1004,7 +1004,7 @@ export const App: React.FC = () => {
                     👁️ {t('viewer.title')}
                   </button>
                 </Tooltip>
-                <Tooltip title={t('library.build_selected', { count: 1 })} body="선택한 모델의 Live2D 패키지(model3.json)를 생성합니다.">
+                <Tooltip contentKey="tooltip.build_single">
                   <button
                     className="btn-primary btn-block"
                     style={{ width: '100%' }}
@@ -1055,7 +1055,7 @@ export const App: React.FC = () => {
         )}
 
         <div className="footer-right">
-          <Tooltip title={t('about.btn_open_output')} body="생성된 Live2D 패키지가 위치한 출력 폴더를 파일 탐색기로 엽니다.">
+          <Tooltip contentKey="tooltip.open_output">
             <button className="btn-secondary" onClick={handleOpenOutput}>
               📂 {t('about.btn_open_output')}
             </button>

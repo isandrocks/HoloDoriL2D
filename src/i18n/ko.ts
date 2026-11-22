@@ -215,16 +215,22 @@ export const ko = {
   // First-Run Guide (Onboarding)
   'onboarding.step1_title': 'HoloDori Live2D Manager에 오신 것을 환영합니다!',
   'onboarding.step1_desc': 'HoloDori Live2D Manager(HDM)는 hololive Dreams의 고화질 Live2D 모델을 뷰어로 감상하고, 나만의 데스크톱 캐릭터나 움직이는 Windows 배경화면으로 사용할 수 있는 도구입니다.',
+  'onboarding.step1_tip': 'Steam에 hololive Dreams가 설치되어 있으면 별도 설정 없이 바로 시작할 수 있습니다.',
   'onboarding.step2_title': '1단계: 설치된 게임 찾기',
   'onboarding.step2_desc': 'Steam에 설치된 hololive Dreams를 자동으로 검색합니다. 게임 파일에서 공식 모델과 의상 목록을 즉시 불러옵니다.',
+  'onboarding.step2_tip': 'Steam 라이브러리가 다른 드라이브나 한글 경로에 있어도 자동으로 안전하게 탐색합니다.',
   'onboarding.step3_title': '2단계: 캐릭터 가져오기 및 생성',
   'onboarding.step3_desc': '원하는 캐릭터와 의상을 선택하고 [가져오기]를 클릭하면, 실시간 물리 효과와 모션이 포함된 표준 Live2D 패키지로 자동 변환됩니다.',
+  'onboarding.step3_tip': '아이돌의 기본 의상(001=nrml), 사복/유니크(002/004=uniq), 공용 의상(003=cmmn)을 자유롭게 선택할 수 있습니다.',
   'onboarding.step4_title': '3단계: Live2D 뷰어 & 모션/표정',
   'onboarding.step4_desc': '내장된 WebGL 뷰어에서 캐릭터의 다양한 게임 모션과 귀여운 표정을 자유롭게 재생해 보세요. 자동 모션 기능을 켜면 스스로 움직입니다.',
+  'onboarding.step4_tip': '스페이스바(모션 재생/정지), R(랜덤 모션), F(화면 맞춤) 단축키를 활용해 보세요.',
   'onboarding.step5_title': '4단계: 데스크톱 캐릭터 마스코트',
   'onboarding.step5_desc': '[데스크톱으로 보내기]를 누르면 테두리 없는 투명 창으로 캐릭터가 화면에 나타납니다. 원하는 위치에 두고 다른 작업을 하면서 함께할 수 있습니다.',
+  'onboarding.step5_tip': '마우스 클릭 통과 기능을 켜면 캐릭터를 띄워둔 채로 뒤의 프로그램이나 게임을 자유롭게 조작할 수 있습니다.',
   'onboarding.step6_title': '5단계: Windows 라이브 배경화면',
   'onboarding.step6_desc': '바탕화면 아이콘 뒤로 캐릭터를 완전히 삽입하는 라이브 배경화면 모드를 지원합니다. 아이콘 클릭이나 드래그를 전혀 방해하지 않습니다.',
+  'onboarding.step6_tip': 'Windows Explorer가 재부팅되어도 감시자가 자동으로 2.5초 내에 배경화면 연결을 복구합니다.',
   'onboarding.next': '다음',
   'onboarding.prev': '이전',
   'onboarding.skip': '건너뛰기',
@@ -332,6 +338,42 @@ export const ko = {
   'tooltip.param_inspector': {
     title: '파라미터 인스펙터',
     body: 'Live2D 모델의 모든 관절, 표정 각도(Angle X/Y/Z) 수치를 직접 슬라이더로 조작할 수 있는 전문가용 도구입니다.',
+  } as TooltipItem,
+  'tooltip.output_dir': {
+    title: '출력 폴더',
+    body: 'Live2D 모델 패키지가 저장될 대상 폴더를 선택합니다.',
+  } as TooltipItem,
+  'tooltip.open_output': {
+    title: '출력 폴더 열기',
+    body: '생성된 Live2D 패키지가 위치한 출력 폴더를 파일 탐색기로 엽니다.',
+  } as TooltipItem,
+  'tooltip.select_source_folder': {
+    title: '소스 폴더 선택',
+    body: 'Live2D 에셋이 추출되어 있는 로컬 폴더를 직접 선택합니다.',
+  } as TooltipItem,
+  'tooltip.force_rescan': {
+    title: '강제 전체 재검색',
+    body: '캐시를 무시하고 모든 하위 폴더의 MOC3와 텍스처를 처음부터 다시 검색합니다.',
+  } as TooltipItem,
+  'tooltip.open_viewer': {
+    title: 'Live2D 뷰어 실행',
+    body: '선택한 의상 모델을 내장 WebGL Live2D 뷰어로 실행합니다.',
+  } as TooltipItem,
+  'tooltip.build_single': {
+    title: '선택 모델 빌드',
+    body: '선택한 모델의 Live2D 패키지(model3.json)를 생성합니다.',
+  } as TooltipItem,
+  'tooltip.steam_detect': {
+    title: 'Steam 게임 자동 검색',
+    body: 'Steam 라이브러리 목록을 다시 스캔하여 HoloDori 게임 설치 위치를 탐색합니다.',
+  } as TooltipItem,
+  'tooltip.choose_game_dir': {
+    title: '게임 폴더 직접 선택',
+    body: 'HoloDori 설치 폴더나 StreamingAssets가 있는 디렉터리를 직접 지정합니다.',
+  } as TooltipItem,
+  'tooltip.open_cache': {
+    title: '캐시 폴더 열기',
+    body: '다운로드 및 추출된 원본 에셋 번들이 저장된 로컬 캐시 폴더를 파일 탐색기로 엽니다.',
   } as TooltipItem,
 
   // Help & Manual

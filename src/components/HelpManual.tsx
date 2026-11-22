@@ -32,18 +32,18 @@ interface TopicDef {
 }
 
 const TOPICS: TopicDef[] = [
-  { id: 'intro', titleKey: 'help.tab_intro', icon: '📖', keywords: ['hdm', '소개', '개요', 'live2d', 'about'] },
-  { id: 'quickstart', titleKey: 'help.tab_quickstart', icon: '🚀', keywords: ['처음', '시작', '빠른 시작', '방법', 'start', 'guide'] },
-  { id: 'library', titleKey: 'help.tab_library', icon: '📚', keywords: ['라이브러리', '캐릭터', '의상', '선택', 'library'] },
-  { id: 'importer', titleKey: 'help.tab_importer', icon: '📥', keywords: ['가져오기', 'steam', '추출', '생성', 'import'] },
-  { id: 'viewer', titleKey: 'help.tab_viewer', icon: '👁️', keywords: ['뷰어', '카메라', '줌', '화면 맞춤', 'viewer', 'controls'] },
-  { id: 'animations', titleKey: 'help.tab_animations', icon: '🎭', keywords: ['모션', '표정', '자동 모션', '물리', 'motion', 'expression'] },
-  { id: 'desktop', titleKey: 'help.tab_desktop', icon: '🖥️', keywords: ['데스크톱', '마스코트', '편집', '잠금', '클릭 통과', 'desktop'] },
-  { id: 'wallpaper', titleKey: 'help.tab_wallpaper', icon: '🖼️', keywords: ['배경화면', 'workerw', 'progman', '오버레이', '아이콘 뒤', 'wallpaper'] },
-  { id: 'shortcuts', titleKey: 'help.tab_shortcuts', icon: '⌨️', keywords: ['단축키', '키보드', '조작', 'shortcuts', 'keys'] },
-  { id: 'glossary', titleKey: 'help.tab_glossary', icon: '💡', keywords: ['용어', '사전', 'moc3', 'cubism', 'glossary'] },
-  { id: 'troubleshooting', titleKey: 'help.tab_troubleshooting', icon: '🔧', keywords: ['문제 해결', '오류', '버그', '안됨', 'troubleshooting'] },
-  { id: 'about', titleKey: 'help.tab_about', icon: 'ℹ️', keywords: ['정보', '버전', '라이선스', '제작', 'about'] },
+  { id: 'intro', titleKey: 'help.tab_intro', icon: '📖', keywords: ['hdm', 'intro', 'overview', 'live2d', 'about', '소개', '개요'] },
+  { id: 'quickstart', titleKey: 'help.tab_quickstart', icon: '🚀', keywords: ['getting started', 'quickstart', 'first', 'start', 'guide', 'steps', '처음', '시작', '빠른 시작', '방법'] },
+  { id: 'library', titleKey: 'help.tab_library', icon: '📚', keywords: ['library', 'character', 'outfit', 'search', 'batch', '라이브러리', '캐릭터', '의상', '선택'] },
+  { id: 'importer', titleKey: 'help.tab_importer', icon: '📥', keywords: ['import', 'steam', 'extract', 'build', 'cache', 'conflict', '가져오기', '추출', '생성'] },
+  { id: 'viewer', titleKey: 'help.tab_viewer', icon: '👁️', keywords: ['viewer', 'controls', 'camera', 'zoom', 'pan', 'fit', '뷰어', '카메라', '줌', '화면 맞춤'] },
+  { id: 'animations', titleKey: 'help.tab_animations', icon: '🎭', keywords: ['motion', 'expression', 'auto motion', 'physics', 'animation', '모션', '표정', '자동 모션', '물리'] },
+  { id: 'desktop', titleKey: 'help.tab_desktop', icon: '🖥️', keywords: ['desktop', 'mascot', 'edit', 'lock', 'click-through', 'click through', '데스크톱', '마스코트', '편집', '잠금', '클릭 통과'] },
+  { id: 'wallpaper', titleKey: 'help.tab_wallpaper', icon: '🖼️', keywords: ['wallpaper', 'workerw', 'progman', 'overlay', 'behind icons', 'watchdog', '배경화면', '오버레이', '아이콘 뒤'] },
+  { id: 'shortcuts', titleKey: 'help.tab_shortcuts', icon: '⌨️', keywords: ['shortcuts', 'keys', 'keyboard', 'hotkeys', '단축키', '키보드', '조작'] },
+  { id: 'glossary', titleKey: 'help.tab_glossary', icon: '💡', keywords: ['glossary', 'terms', 'moc3', 'cubism', 'webgl', '용어', '사전'] },
+  { id: 'troubleshooting', titleKey: 'help.tab_troubleshooting', icon: '🔧', keywords: ['troubleshooting', 'faq', 'error', 'bug', 'fix', 'black screen', '문제 해결', '오류', '버그', '안됨'] },
+  { id: 'about', titleKey: 'help.tab_about', icon: 'ℹ️', keywords: ['about', 'version', 'license', 'tech stack', '정보', '버전', '라이선스', '제작'] },
 ];
 
 export const HelpManual: React.FC<HelpManualProps> = ({
@@ -53,7 +53,7 @@ export const HelpManual: React.FC<HelpManualProps> = ({
   onRestartOnboarding,
   outputDir,
 }) => {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [activeTopic, setActiveTopic] = useState<HelpTopicId>(initialTopic as HelpTopicId);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -94,7 +94,342 @@ export const HelpManual: React.FC<HelpManualProps> = ({
     }
   };
 
+  const renderEnglishContent = () => {
+    switch (activeTopic) {
+      case 'intro':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_intro')}</h2>
+            <p>
+              <strong>HoloDori Live2D Manager (HDM)</strong> is an unofficial utility built to extract
+              Live2D character models from <em>hololive Dreams</em>, view them in a high-definition WebGL
+              player, and run them as transparent desktop mascots or Windows live wallpapers.
+            </p>
+            <h3>Key Features</h3>
+            <ul>
+              <li><strong>Smart Game Detection</strong>: Automatically detects your Steam installation path and library folders to read game assets.</li>
+              <li><strong>Authentic Live2D Extraction</strong>: Cleanly extracts MOC3 models, high-resolution textures, and real-time physics from encrypted catalogs.</li>
+              <li><strong>Rich Animations</strong>: Play authentic in-game motions and facial expressions with smooth transitions.</li>
+              <li><strong>Transparent Desktop Mascot</strong>: Spawn an always-on-top frameless character window with Click-Through support so it never gets in the way of your work.</li>
+              <li><strong>True Windows Live Wallpaper</strong>: Provides native WorkerW / Progman shell embedding that places your character cleanly behind desktop icons.</li>
+            </ul>
+          </div>
+        );
+
+      case 'quickstart':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_quickstart')}</h2>
+            <p>Even first-time users can get a character up and running in under a minute by following these 6 steps:</p>
+            <ol className="hdm-manual-steps">
+              <li>
+                <strong>Verify Game Installation</strong>: Make sure <em>hololive Dreams</em> is installed via Steam.
+              </li>
+              <li>
+                <strong>Open Game Importer</strong>: Click <code>[Import from Steam HoloDori]</code> in the top navigation bar.
+              </li>
+              <li>
+                <strong>Auto-Detect Steam Game</strong>: Click <code>[Auto-Detect Steam Game]</code> to immediately locate your install path and load the character catalog.
+              </li>
+              <li>
+                <strong>Select Characters &amp; Outfits</strong>: Check your favorite idols and outfits (default casual, stage outfits, etc.) and click <code>[Import &amp; Build Selected Models]</code>.
+              </li>
+              <li>
+                <strong>Preview in Viewer</strong>: Once complete, click <code>[Open Viewer]</code> to inspect motions, expressions, and physics.
+              </li>
+              <li>
+                <strong>Send to Desktop or Wallpaper</strong>: Click <code>[Send to Desktop]</code> or <code>[Set as Wallpaper]</code> at the top of the viewer!
+              </li>
+            </ol>
+            {onRestartOnboarding && (
+              <div style={{ marginTop: '20px' }}>
+                <button className="btn-secondary" onClick={onRestartOnboarding}>
+                  🎉 {t('onboarding.restart_guide')}
+                </button>
+              </div>
+            )}
+          </div>
+        );
+
+      case 'library':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_library')}</h2>
+            <p>
+              All imported character models are stored in your library so you can quickly search and launch them anytime.
+            </p>
+            <h3>Interface Controls</h3>
+            <ul>
+              <li><strong>Search Bar</strong>: Filter in real time by character ID (e.g. <code>00007</code>), name, or outfit token (e.g. <code>001</code>).</li>
+              <li><strong>Outfit Card Selection</strong>: Click an outfit card or badge under a character to inspect or switch to that outfit immediately.</li>
+              <li><strong>Open Viewer</strong>: Click the viewer button on a card or details panel to launch the full WebGL Live2D viewer.</li>
+              <li><strong>Batch Build</strong>: In Local Folder mode, convert all valid discovered models into ready-to-use Live2D packages at once.</li>
+            </ul>
+          </div>
+        );
+
+      case 'importer':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_importer')}</h2>
+            <p>
+              Core converter that safely decodes MOC3 models, textures, motions, and physics from game data archives.
+            </p>
+            <h3>Conflict Policy</h3>
+            <ul>
+              <li><strong>Skip Existing (Skip)</strong>: Skips models whose output folder already exists without reprocessing. (Recommended)</li>
+              <li><strong>Unique Suffix</strong>: Preserves existing folders and creates a new folder with a numbered suffix such as <code>_001</code>.</li>
+              <li><strong>Overwrite</strong>: Replaces existing package files completely with newly extracted data.</li>
+            </ul>
+            <h3>Cache Management</h3>
+            <p>
+              Downloaded or extracted asset bundles are saved in a local cache for instant reuse on future imports.
+              Only click <code>[Clear Cache]</code> when you need to reclaim disk space.
+            </p>
+          </div>
+        );
+
+      case 'viewer':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_viewer')}</h2>
+            <p>Smoothly renders characters using the official Live2D Cubism WebGL runtime.</p>
+            <h3>Mouse &amp; Camera Controls</h3>
+            <ul>
+              <li><strong>Pan</strong>: Left-click and drag anywhere on the canvas to move the camera.</li>
+              <li><strong>Zoom</strong>: Scroll the mouse wheel to smoothly zoom in and out between 0.2x and 8.0x.</li>
+              <li><strong>Fit to Screen (Fit)</strong>: Double-click the canvas or press <code>F</code> to center and fit the character to the viewport.</li>
+              <li><strong>Reset Camera</strong>: Press <code>0</code> to reset zoom to 100% and return to the origin position.</li>
+            </ul>
+          </div>
+        );
+
+      case 'animations':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_animations')}</h2>
+            <h3>Motions</h3>
+            <p>
+              Play character-specific in-game motions (greetings, idles, dances, gestures, and more).
+              Turn on <code>[Auto Motion]</code> to automatically trigger a new motion every configured interval (in seconds).
+            </p>
+            <h3>Expressions</h3>
+            <p>
+              Overlay facial expressions such as smiles, blushes, surprise, or winks. Click <code>[Clear Expression]</code> to smoothly return to the default neutral face.
+            </p>
+            <h3>Physics Simulation</h3>
+            <p>
+              Hair, ribbons, and clothing sway naturally in response to movement, gravity, and momentum. You can toggle physics on or off from the toolbar.
+            </p>
+          </div>
+        );
+
+      case 'desktop':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_desktop')}</h2>
+            <p>
+              Click <code>[Send to Desktop]</code> to spawn a standalone frameless transparent mascot window on your desktop.
+            </p>
+            <h3>Edit Mode vs. Lock Mode</h3>
+            <ul>
+              <li><strong>Edit Mode</strong>: Freely drag the character anywhere on screen and pull window edges to resize.</li>
+              <li><strong>Lock Mode</strong>: Locks the window position and size so accidental mouse clicks won&apos;t move it.</li>
+            </ul>
+            <h3>Click-Through Mode</h3>
+            <p>
+              Allows mouse clicks to pass straight through the character window so you can work in browsers, games, or documents underneath.
+              Because right-clicking the character is disabled while Click-Through is active, press <strong><code>Ctrl + Shift + D</code></strong> or
+              right-click the <strong>System Tray icon</strong> in the taskbar notification area to return to Edit Mode.
+            </p>
+          </div>
+        );
+
+      case 'wallpaper':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_wallpaper')}</h2>
+            <p>
+              Integrates directly with the Windows Explorer shell to render your character behind desktop icons.
+            </p>
+            <h3>Host Modes</h3>
+            <ul>
+              <li><strong>WorkerW (Default)</strong>: Internal desktop background layer on Windows 10/11. Desktop icons and selection rectangles appear naturally in front of the character.</li>
+              <li><strong>Progman Compatibility Mode</strong>: Alternative Windows Shell host window used on systems where WorkerW is unavailable.</li>
+              <li><strong>Desktop Overlay Fallback</strong>: Automatically engages as a safe transparent window on environments that block shell embedding so your character never disappears.</li>
+            </ul>
+            <h3>Explorer Auto-Recovery Watchdog</h3>
+            <p>
+              Even if Windows Explorer is restarted from Task Manager or your graphics driver resets,
+              the background watchdog automatically rediscovers the shell handle and restores your live wallpaper within 2.5 seconds.
+            </p>
+          </div>
+        );
+
+      case 'shortcuts':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_shortcuts')}</h2>
+            <table className="hdm-manual-table">
+              <thead>
+                <tr>
+                  <th>Shortcut</th>
+                  <th>Action</th>
+                  <th>Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Space</code></td>
+                  <td>Play / pause current motion</td>
+                  <td>Live2D Viewer</td>
+                </tr>
+                <tr>
+                  <td><code>R</code></td>
+                  <td>Play a random available motion immediately</td>
+                  <td>Live2D Viewer / Desktop</td>
+                </tr>
+                <tr>
+                  <td><code>F</code></td>
+                  <td>Fit character to screen (Fit to Canvas)</td>
+                  <td>Live2D Viewer</td>
+                </tr>
+                <tr>
+                  <td><code>Double-Click</code></td>
+                  <td>Center and fit character to viewport</td>
+                  <td>Live2D Viewer</td>
+                </tr>
+                <tr>
+                  <td><code>0</code> (Zero)</td>
+                  <td>Reset camera zoom (100%) and origin position</td>
+                  <td>Live2D Viewer</td>
+                </tr>
+                <tr>
+                  <td><code>F11</code></td>
+                  <td>Toggle fullscreen mode</td>
+                  <td>Live2D Viewer</td>
+                </tr>
+                <tr>
+                  <td><code>Esc</code></td>
+                  <td>Exit fullscreen / close modal</td>
+                  <td>All Screens</td>
+                </tr>
+                <tr>
+                  <td><code>Ctrl + Shift + D</code></td>
+                  <td><strong>Restore Desktop Mascot Edit Mode immediately</strong> (disables Click-Through)</td>
+                  <td>Windows Global</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        );
+
+      case 'glossary':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_glossary')}</h2>
+            <dl className="hdm-manual-glossary">
+              <dt>Live2D</dt>
+              <dd>Proprietary animation technology by Live2D Inc. that brings 2D illustrations to life with smooth multi-dimensional movement while preserving the original artwork.</dd>
+
+              <dt>MOC3</dt>
+              <dd>Compiled core binary model file format used by Live2D Cubism 3, 4, and 5.</dd>
+
+              <dt>Motion (motion3.json)</dt>
+              <dd>Keyframe curve animation data (Bézier curves) that drives dancing, greetings, and body movement over time.</dd>
+
+              <dt>Expression (exp3.json)</dt>
+              <dd>Facial parameter preset data that overrides eye shape, mouth form, and cheek blush to convey emotions.</dd>
+
+              <dt>Physics (physics3.json)</dt>
+              <dd>Pendulum-rig simulation data that calculates natural secondary motion for hair, ribbons, and outfits based on movement and gravity.</dd>
+
+              <dt>WorkerW</dt>
+              <dd>Internal desktop container window created by Windows Explorer. HDM attaches the Live2D canvas behind the icon list view inside this layer.</dd>
+
+              <dt>Progman</dt>
+              <dd>Short for Program Manager — the top-level Windows desktop shell host window.</dd>
+
+              <dt>WebGL</dt>
+              <dd>Hardware-accelerated web graphics standard used to render high-performance 2D/3D visuals on the GPU inside the embedded viewer.</dd>
+            </dl>
+          </div>
+        );
+
+      case 'troubleshooting':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('help.tab_troubleshooting')}</h2>
+            <h3>Frequently Asked Questions &amp; Fixes</h3>
+            <div className="hdm-faq-item">
+              <h4>Q. Steam game auto-detection cannot find my installation.</h4>
+              <p>
+                A. If Steam is installed in a custom location on another drive (D:, E:, etc.) or inside a custom folder,
+                click <code>[Choose Game Directory Manually]</code> and select your <code>hololive Dreams</code> installation folder directly.
+              </p>
+            </div>
+            <div className="hdm-faq-item">
+              <h4>Q. The viewer canvas is black or the model is not visible.</h4>
+              <p>
+                A. Verify that the official Live2D Core runtime (<code>live2dcubismcore.min.js</code>) is placed in <code>public/live2d/</code>.
+                Also try double-clicking the canvas or pressing <code>F</code> to re-center the camera on the model.
+              </p>
+            </div>
+            <div className="hdm-faq-item">
+              <h4>Q. I can&apos;t click my desktop character — clicks go to windows behind it.</h4>
+              <p>
+                A. Click-Through mode is currently enabled. Press <strong><code>Ctrl + Shift + D</code></strong> on your keyboard
+                or right-click the system tray icon in the bottom-right taskbar corner and select Edit Mode.
+              </p>
+            </div>
+            <div className="hdm-faq-item">
+              <h4>Q. Live wallpaper covers my desktop icons.</h4>
+              <p>
+                A. On certain Windows updates, the window may have fallen back to Desktop Overlay mode.
+                Click <code>[Recover Wallpaper]</code> from the tray or wallpaper controls to re-attach to Explorer&apos;s WorkerW layer.
+              </p>
+            </div>
+          </div>
+        );
+
+      case 'about':
+        return (
+          <div className="hdm-manual-article">
+            <h2>{t('about.title')}</h2>
+            <div className="hdm-about-box">
+              <div className="hdm-about-badge">v1.0.0 Stable</div>
+              <p>{t('about.description')}</p>
+              <p className="hdm-about-disclaimer">⚠️ {t('about.disclaimer')}</p>
+              <div className="hdm-about-specs">
+                <div><strong>OS:</strong> Windows 10 (1809+) / Windows 11 (22H2, 24H2, 25H2)</div>
+                <div><strong>Backend:</strong> Rust (Tauri 2.2, Win32 shell integration)</div>
+                <div><strong>Frontend:</strong> React 18, TypeScript, WebGL 2.0</div>
+                <div><strong>Engine:</strong> Live2D Cubism SDK for Web v5</div>
+              </div>
+              <div className="hdm-about-buttons">
+                <button className="btn-secondary" onClick={handleOpenGitHubDocs}>
+                  🌐 {t('about.btn_github')}
+                </button>
+                {outputDir && (
+                  <button className="btn-secondary" onClick={handleOpenOutputDir}>
+                    📁 {t('about.btn_open_output')}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   const renderContent = () => {
+    if (lang !== 'ko') {
+      return renderEnglishContent();
+    }
+
     switch (activeTopic) {
       case 'intro':
         return (

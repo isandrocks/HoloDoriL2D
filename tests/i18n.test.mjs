@@ -154,3 +154,21 @@ test('i18n: Technical terms preserved in Korean translations and help', () => {
     );
   }
 });
+
+test('i18n: English guide, help manual, and tooltips contain no Korean Hangul text', () => {
+  const hangulRegex = /[가-힣]/;
+
+  for (const [key, val] of Object.entries(en)) {
+    if (key === 'nav.lang_ko') continue;
+    const text = typeof val === 'string' ? val : `${val.title} ${val.body} ${val.note || ''} ${val.shortcut || ''}`;
+    assert.ok(!hangulRegex.test(text), `English key "${key}" unexpectedly contains Hangul: ${text}`);
+  }
+
+  const guideSrc = fs.readFileSync('src/components/FirstRunGuide.tsx', 'utf8');
+  assert.ok(!hangulRegex.test(guideSrc), 'FirstRunGuide.tsx should use i18n keys with no hardcoded Hangul');
+
+  const helpSrc = fs.readFileSync('src/components/HelpManual.tsx', 'utf8');
+  const enMatch = helpSrc.match(/const renderEnglishContent = \(\) => \{([\s\S]*?)\n  const renderContent = \(\) => \{/);
+  assert.ok(enMatch, 'HelpManual.tsx must define renderEnglishContent');
+  assert.ok(!hangulRegex.test(enMatch[1]), 'HelpManual.tsx renderEnglishContent must not contain Hangul');
+});

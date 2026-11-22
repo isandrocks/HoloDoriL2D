@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test:unit": "node --test tests/viewer_unit.test.mjs tests/i18n.test.mjs",
     "test:runtime": "node scripts/test_viewer_runtime.mjs",
